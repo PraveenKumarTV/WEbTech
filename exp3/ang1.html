@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>
+            Angular Practice1
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    </head>
+    <body>
+        <div ng-app="myapp" ng-controller="ctrl">
+        <label for="">Enter your name:</label>
+        <input type="text" ng-model="name">
+        <h1 ng-click="changeName()">{{name}}</h1><br>
+        <p ng-bind="num"></p>
+        <button ng-click="f1(1)">1</button><button ng-click="f1(2)">2</button><button ng-click="f1(3)">3</button><button ng-click="add()">+</button><br>
+        <button ng-click="f1(4)">4</button><button ng-click="f1(5)">5</button><button ng-click="f1(6)">6</button><button ng-click="sub()">-</button><br>
+        <button ng-click="f1(7)">7</button><button ng-click="f1(6)">8</button><button ng-click="f1(9)">9</button><button ng-click="mul()">*</button><br>
+        <button ng-click="mod()">%</button><button ng-click="f0()">0</button><button ng-click="div()">/</button><button ng-click="equal()">=</button><br>
+        <button ng-click="clear()">AC</button>
+        </div>
+    </body>
+    <script src="ctrl.js"></script>
+</html>
