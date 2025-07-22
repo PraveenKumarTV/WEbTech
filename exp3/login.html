@@ -1,0 +1,108 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <title>Login Page</title>
+    <link rel="icon" href="logo.png">
+    <style>
+  /* Basic reset */
+  * {
+    box-sizing: border-box;
+  }
+
+  body.body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2A4759 ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  form.loginContainer {
+    background-color: #FFFFFF;
+    padding: 40px 50px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(42, 71, 89, 0.15);
+    width: 320px;
+    text-align: center;
+  }
+
+  .imgContainer {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 25px;
+    background-color: #F79B72; /* placeholder background */
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  label {
+    display: block;
+    text-align: left;
+    font-weight: 600;
+    color: #2A4759;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1.5px solid #DDDDDD;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #F79B72;
+    outline: none;
+  }
+
+  button {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #F79B72;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 12px 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  button:hover {
+    background-color: #d57f5f;
+  }
+</style>
+</head>
+<body ng-app="LoginApp" ng-controller="loginctrl" class="body">
+    <form class="loginContainer">
+        <img src="logo.png" alt="" class="imgContainer">
+        <label for="username">Username:</label>
+        <input type="email" id="email" ng-model="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="password" required>
+        <button type="button" ng-click="login()">Login</button>
+    </form>
+</body>
+<script>
+    var app = angular.module("LoginApp", []);
+    app.controller("loginctrl", function ($scope) {
+        $scope.login = function () {
+            if ($scope.username === 'admin@gmail.com' && $scope.password === 'admin123') {
+                alert('Login Successful');
+            } else {
+                alert('Invalid Credentials');
+            }
+            $scope.username = "";
+            $scope.password = "";  // Fixed typo here
+        };
+    });
+</script>
+</html>
