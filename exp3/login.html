@@ -1,6 +1,8 @@
 <html>
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+
     <title>Login Page</title>
     <link rel="icon" href="logo.png">
     <style>
@@ -92,11 +94,18 @@
     </form>
 </body>
 <script>
-    var app = angular.module("LoginApp", []);
+    var app = angular.module("LoginApp", ["ngRoute"]);
+    app.config(function($routeProvider){
+        $routeProvider.when("/projects.html",{
+            templateUrl:"/projects.html"
+        })
+    })
     app.controller("loginctrl", function ($scope) {
         $scope.login = function () {
             if ($scope.username === 'admin@gmail.com' && $scope.password === 'admin123') {
                 alert('Login Successful');
+                $window.location.href="C:/Users/admin/Desktop/webtech/exp3/projects.html";
+                //$location.path("/projects.html")
             } else {
                 alert('Invalid Credentials');
             }
@@ -104,5 +113,7 @@
             $scope.password = "";  // Fixed typo here
         };
     });
+    //var app1=angular.module("LoginApp",["ngroute"])
+    
 </script>
 </html>
