@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Projects services</title>
+    <link rel="icon" href="logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.js"></script>
+    
+</head>
+<body ng-app="ProjectApp">
+    <h1>Project Management</h1><br>
+    <div ng-controller="addProjectDet as add">
+        <input type="text" placeholder="project name" ng-model="add.name" required>
+        <input type="text" placeholder="project code" ng-model="add.code" required>
+        <button ng-click="add.addProject()">Add</button>
+    </div>
+
+    <div ng-controller="ViewDelProject as vdp">
+        <ul>
+            
+            <li ng-repeat="project in vdp.getProjects()">
+                Project-name: {{project.name}}, Project-code: {{project.code}} 
+                <button ng-click="vdp.removeProject($index)">remove</button>
+            </li>
+        </ul>
+    </div>
+
+<script>
+    var app = angular.module("ProjectApp", []);
+
+    app.service("ServiceApp", ServiceApp);
+    app.controller("addProjectDet", addProjectDet);
+    app.controller("ViewDelProject", ViewDelProject);
+
+    function ServiceApp() {
+        var service = this;
+        var items = [];
+
+        service.addProject = function(name, code) {
+            if(name && code) { 
+                items.push({ name: name, code: code });
+            }
+        };
+
+        service.removeProject = function(index) {
+            items.splice(index, 1);
+        };
+
+        service.getProjects = function() {
+            return items;
+        };
+    }
+
+    addProjectDet.$inject = ['ServiceApp'];
+    function addProjectDet(ServiceApp) {
+        var projectsAdder = this;
+        projectsAdder.name = "";
+        projectsAdder.code = "";
+
+        projectsAdder.addProject = function() {
+            ServiceApp.addProject(projectsAdder.name, projectsAdder.code);
+            
+            projectsAdder.name = "";
+            projectsAdder.code = "";
+        };
+    }
+
+    ViewDelProject.$inject = ['ServiceApp'];
+    function ViewDelProject(ServiceApp) {
+        var project = this;
+
+        project.getProjects = function() {
+            return ServiceApp.getProjects();
+        };
+
+        project.removeProject = function(index) {
+            ServiceApp.removeProject(index);
+        };
+    }
+</script>
+
+</body>
+</html>
