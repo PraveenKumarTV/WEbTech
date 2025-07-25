@@ -19,7 +19,8 @@
         <ul>
             
             <li ng-repeat="project in vdp.getProjects()">
-                Project-name: {{project.name}}, Project-code: {{project.code}} 
+                Project-name: {{project.name}}, Project-code: {{project.code}}
+                <button ng-click="vdp.editProject($index)">edit</button> 
                 <button ng-click="vdp.removeProject($index)">remove</button>
             </li>
         </ul>
@@ -41,6 +42,10 @@
                 items.push({ name: name, code: code });
             }
         };
+        service.editProject=function(name,code,index){
+            items[index].name=name;
+            items[index].code=code;
+        }
 
         service.removeProject = function(index) {
             items.splice(index, 1);
@@ -72,6 +77,13 @@
         project.getProjects = function() {
             return ServiceApp.getProjects();
         };
+
+        project.editProject=function(){
+            var index = prompt("Enter the index of the project you want to edit");
+            var name = prompt("Enter the new name of the project");
+            var code = prompt("Enter the new code of the project");
+            ServiceApp.editProject(name,code,index);
+        }
 
         project.removeProject = function(index) {
             ServiceApp.removeProject(index);
