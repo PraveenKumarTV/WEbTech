@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="SearchApp">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Projects</title>
+  <link rel="icon" href="logo.png" />
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #EEEEEE;
+      color: #2A4759;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #2A4759;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      color: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #F79B72;
+      user-select: none;
+    }
+
+    header .logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    nav {
+      margin-left: auto;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.3s;
+      color: #F79B72;
+    }
+
+    nav ul li:hover {
+      color:#EEEEEE;
+    }
+
+    /* Main content */
+    main {
+      flex: 1;
+      padding: 40px 50px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      font-weight: 700;
+      color: #2A4759;
+    }
+
+    /* Search & filters */
+    .filters {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filters input[type="text"],
+    .filters select {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px 12px;
+      border: 1.5px solid #DDDDDD;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .filters input[type="text"]:focus,
+    .filters select:focus {
+      border-color: #F79B72;
+      outline: none;
+    }
+
+    /* Projects list */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .project-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px 25px;
+      box-shadow: 0 3px 8px rgba(42, 71, 89, 0.08);
+      transition: box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-card:hover {
+      box-shadow: 0 6px 15px rgba(42, 71, 89, 0.15);
+    }
+
+    .project-title {
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 6px;
+      color: #2A4759;
+    }
+
+    .project-description {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .project-meta {
+      font-size: 13px;
+      color: #888;
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    /* Buttons container */
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    button.project-btn {
+      background-color: #F79B72;
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      flex: 1 1 auto;
+      text-align: center;
+    }
+
+    button.project-btn:hover {
+      background-color: #d57f5f;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2A4759;
+      padding: 20px 40px;
+      color: white;
+      text-align: center;
+      font-size: 14px;
+      user-select: none;
+    }
+
+    .invalid-input {
+      border-color: #e74c3c !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+      .filters {
+        flex-direction: column;
+      }
+      .btn-group {
+        flex-direction: column;
+      }
+      button.project-btn {
+        flex: 1 1 100%;
+      }
+    }
+    .filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.filters input,
+.filters select {
+  flex: 1 1 0;
+  min-width: 150px;
+  padding: 10px 12px;
+  border: 1.5px solid #DDDDDD;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.filters input:focus,
+.filters select:focus {
+  border-color: #F79B72;
+  outline: none;
+}
+.error-msg {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+  font-weight: 600;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(42, 71, 89, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 30px 30px 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #2A4759;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2A4759;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px 12px;
+  border: 1.5px solid #DDDDDD;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #F79B72;
+  outline: none;
+}
+
+.invalid-input {
+  border-color: #e74c3c !important;
+}
+
+.error-msg {
+  color: #e74c3c;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+
+  </style>
+</head>
+<body ng-controller="searchCtrl">
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Logo" />
+      CrackURPath
+    </div>
+    <nav>
+      <ul>
+        <li>Home</li>
+        <li>Search Projects</li>
+        <li>About</li>
+        <li>Contact</li>
+        <li>Login</li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Search Projects</h1>
+
+    <!-- Search and Filters -->
+    <section class="filters" aria-label="Search and filter projects">
+      <input
+        type="text"
+        placeholder="Search by title or description..."
+        ng-model="searchText"
+        aria-label="Search projects"
+      />
+      <select ng-model="selectedCategory" aria-label="Filter by category">
+        <option value="">All Categories</option>
+        <option ng-repeat="cat in categories" value="{{cat}}">{{cat}}</option>
+      </select>
+      <select ng-model="selectedStatus" aria-label="Filter by status">
+        <option value="">All Statuses</option>
+        <option ng-repeat="stat in statuses" value="{{stat}}">{{stat}}</option>
+      </select>
+    </section>
+
+    <!-- Button to toggle Add Project form -->
+    <button
+      class="project-btn"
+      style="max-width: 220px; margin-bottom: 25px;"
+      ng-click="showForm = !showForm"
+      aria-pressed="{{showForm}}"
+      aria-controls="addProjectForm"
+    >
+      {{ showForm ? 'Hide Add New Project Form' : 'Add New Project' }}
+    </button>
+
+    <!-- Add New Project Form (toggle visibility) -->
+<!-- Button to toggle form popup -->
+
+
+<!-- Popup Form Modal -->
+<div class="modal-overlay" ng-show="showForm" ng-click="closeModal($event)">
+  <div class="modal-content" ng-click="$event.stopPropagation()">
+    <span class="close-btn" ng-click="toggleForm()">&times;</span>
+    <h2>Add New Project</h2>
+    <form name="projectForm" ng-submit="submitProject()" novalidate>
+
+      <div class="form-group">
+        <label for="title">Project Name</label>
+        <input type="text" id="title" name="title" ng-model="newProject.title" required
+          ng-class="{'invalid-input': projectForm.title.$touched && projectForm.title.$invalid}" />
+        <div ng-show="projectForm.title.$touched && projectForm.title.$invalid" class="error-msg">
+          Project Name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" ng-model="newProject.category" required
+          ng-class="{'invalid-input': projectForm.category.$touched && projectForm.category.$invalid}">
+          <option value="" disabled selected>Select Category</option>
+          <option ng-repeat="cat in categories" value="{{cat}}">{{cat}}</option>
+        </select>
+        <div ng-show="projectForm.category.$touched && projectForm.category.$invalid" class="error-msg">
+          Category is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" ng-model="newProject.status" required
+          ng-class="{'invalid-input': projectForm.status.$touched && projectForm.status.$invalid}">
+          <option value="" disabled selected>Select Status</option>
+          <option ng-repeat="stat in statuses" value="{{stat}}">{{stat}}</option>
+        </select>
+        <div ng-show="projectForm.status.$touched && projectForm.status.$invalid" class="error-msg">
+          Status is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="owner">Owner</label>
+        <input type="text" id="owner" name="owner" ng-model="newProject.owner" required
+          ng-class="{'invalid-input': projectForm.owner.$touched && projectForm.owner.$invalid}" />
+        <div ng-show="projectForm.owner.$touched && projectForm.owner.$invalid" class="error-msg">
+          Owner Name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" ng-model="newProject.email" required
+          ng-class="{'invalid-input': projectForm.email.$touched && projectForm.email.$invalid}" />
+        <div ng-show="projectForm.email.$touched && projectForm.email.$invalid" class="error-msg">
+          <div ng-show="projectForm.email.$error.required">Email is required.</div>
+          <div ng-show="projectForm.email.$error.email">Invalid email format.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sourceCodeUrl">Source Code URL</label>
+        <input type="url" id="sourceCodeUrl" name="sourceCodeUrl" ng-model="newProject.sourceCodeUrl" required
+          ng-class="{'invalid-input': projectForm.sourceCodeUrl.$touched && projectForm.sourceCodeUrl.$invalid}" />
+        <div ng-show="projectForm.sourceCodeUrl.$touched && projectForm.sourceCodeUrl.$invalid" class="error-msg">
+          <div ng-show="projectForm.sourceCodeUrl.$error.required">Source Code Link is required.</div>
+          <div ng-show="projectForm.sourceCodeUrl.$error.url">Invalid URL.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="liveUrl">Live URL</label>
+        <input type="url" id="liveUrl" name="liveUrl" ng-model="newProject.liveUrl" required
+          ng-class="{'invalid-input': projectForm.liveUrl.$touched && projectForm.liveUrl.$invalid}" />
+        <div ng-show="projectForm.liveUrl.$touched && projectForm.liveUrl.$invalid" class="error-msg">
+          <div ng-show="projectForm.liveUrl.$error.required">Live Demo Link is required.</div>
+          <div ng-show="projectForm.liveUrl.$error.url">Invalid URL.</div>
+        </div>
+      </div>
+
+      <button type="submit" class="project-btn" ng-disabled="projectForm.$invalid">Submit Project</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+    <section class="projects-list" aria-label="List of projects">
+      <article
+        class="project-card"
+        tabindex="0"
+        ng-repeat="project in projects | filter: projectFilter"
+      >
+        <h2 class="project-title">{{ project.title }}</h2>
+        <p class="project-description">{{ project.description }}</p>
+        <div class="project-meta">
+          <span>Category: {{ project.category }}</span>
+          <span>Status: {{ project.status }}</span>
+        </div>
+        <div class="btn-group">
+          <button
+            class="project-btn"
+            ng-click="openUrl(project.sourceCodeUrl)"
+          >
+            View Source Code
+          </button>
+          <button class="project-btn" ng-click="openUrl(project.liveUrl)">
+            Live URL
+          </button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 CrackURPath. All rights reserved.
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    
+    angular.module('SearchApp', []).controller('searchCtrl', function ($scope, $window, $http) {
+        $scope.showForm = false;
+
+$scope.toggleForm = function () {
+  $scope.showForm = !$scope.showForm;
+};
+
+$scope.closeModal = function ($event) {
+  if ($event.target.classList.contains('modal-overlay')) {
+    $scope.showForm = false;
+  }
+};
+
+      $scope.projects = [
+        {
+          title: 'Website Redesign',
+          description: 'Revamping the company website for better user experience and mobile responsiveness.',
+          category: 'Web Development',
+          status: 'Ongoing',
+          sourceCodeUrl: 'https://github.com/example/website-redesign',
+          liveUrl: 'https://example.com/website-redesign',
+        },
+        {
+          title: 'AI Chatbot',
+          description: 'Developing a customer service chatbot powered by machine learning.',
+          category: 'Machine Learning',
+          status: 'Planned',
+          sourceCodeUrl: 'https://github.com/example/ai-chatbot',
+          liveUrl: 'https://example.com/ai-chatbot',
+        },
+        {
+          title: 'Mobile Fitness App',
+          description: 'A cross-platform mobile app to track workouts and nutrition.',
+          category: 'Mobile Apps',
+          status: 'Completed',
+          sourceCodeUrl: 'https://github.com/example/mobile-fitness-app',
+          liveUrl: 'https://example.com/mobile-fitness-app',
+        },
+      ];
+
+      // Derive unique categories and statuses for dropdowns
+      $scope.categories = [...new Set($scope.projects.map(p => p.category))];
+      $scope.statuses = [...new Set($scope.projects.map(p => p.status))];
+
+      // Control form visibility (initially hidden)
+      $scope.showForm = false;
+
+      // Filter function for projects based on search & filters
+      $scope.projectFilter = function (project) {
+        const search = ($scope.searchText || '').toLowerCase();
+        const category = $scope.selectedCategory || '';
+        const status = $scope.selectedStatus || '';
+
+        const matchesSearch =
+          project.title.toLowerCase().includes(search) ||
+          project.description.toLowerCase().includes(search);
+
+        const matchesCategory = category ? project.category === category : true;
+        const matchesStatus = status ? project.status === status : true;
+
+        return matchesSearch && matchesCategory && matchesStatus;
+      };
+
+      // Open URL safely in new tab
+      $scope.openUrl = function (url) {
+        if (url) {
+          $window.open(url, '_blank', 'noopener');
+        }
+      };
+
+      // Initialize newProject object
+      $scope.newProject = {
+        title: '',
+        category: '',
+        status: '',
+        owner: '',
+        email: '',
+        sourceCodeUrl: '',
+        liveUrl: '',
+      };
+
+      // Submit new project
+      $scope.submitProject = function () {
+        if ($scope.projectForm.$valid) {
+          // Add new project to the projects array
+          $scope.projects.push({
+            title: $scope.newProject.title,
+            description: `Added by ${$scope.newProject.owner}.`,
+            category: $scope.newProject.category,
+            status: $scope.newProject.status,
+            sourceCodeUrl: $scope.newProject.sourceCodeUrl,
+            liveUrl: $scope.newProject.liveUrl,
+          });
+
+          // Update categories and statuses if new values were added
+          if (!$scope.categories.includes($scope.newProject.category)) {
+            $scope.categories.push($scope.newProject.category);
+          }
+          if (!$scope.statuses.includes($scope.newProject.status)) {
+            $scope.statuses.push($scope.newProject.status);
+          }
+
+          // Reset form & hide it
+          $scope.newProject = {
+            title: '',
+            category: '',
+            status: '',
+            owner: '',
+            email: '',
+            sourceCodeUrl: '',
+            liveUrl: '',
+          };
+          $scope.projectForm.$setPristine();
+          $scope.projectForm.$setUntouched();
+          $scope.showForm = false;
+        }
+      };
+    });
+  </script>
+</body>
+</html>
