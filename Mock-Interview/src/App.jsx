@@ -2,12 +2,15 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import QuestionsEntry from './QuestionsEntry'
+import MockInterviewPage from './MockInterviewPage'
 
 function App() {
   return(
-  <QuestionsEntry/>
+  <MockInterviewPage/>
+  // <QuestionsEntry/>
   )
 }
 
