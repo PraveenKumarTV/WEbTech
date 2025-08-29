@@ -58,7 +58,8 @@ function MockInterviewPage() {
 
     recognition.onresult = (event) => {
       const spoken = event.results[0][0].transcript;
-      setTranscript(spoken);
+      // Append or replace transcript as needed
+      setTranscript((prev) => (prev ? prev + ' ' + spoken : spoken));
     };
 
     recognition.onerror = (event) => {
@@ -68,10 +69,10 @@ function MockInterviewPage() {
 
     recognition.onend = () => {
       setMicRecording(false);
-
-      if (transcript.trim()) {
-        sendAnswer(transcript);
-      }
+      // Optionally auto-send after speech ends, comment out if you want manual send only
+      // if (transcript.trim()) {
+      //   sendAnswer(transcript);
+      // }
     };
   }
 
@@ -101,6 +102,15 @@ function MockInterviewPage() {
       setFeedback({ error: error.message });
     } finally {
       setLoadingFeedback(false);
+    }
+  }
+
+  // Handle manual submit button click
+  function handleSubmitClick() {
+    if (transcript.trim()) {
+      sendAnswer(transcript.trim());
+    } else {
+      alert('Please enter or speak your answer before submitting.');
     }
   }
 
@@ -179,9 +189,21 @@ function MockInterviewPage() {
             className="form-control"
             rows={5}
             value={transcript}
-            readOnly
+            onChange={(e) => setTranscript(e.target.value)}
             ref={transcriptRef}
+            placeholder="Type your answer here or use the microphone to speak..."
           ></textarea>
+        </div>
+
+        {/* Submit Answer Button */}
+        <div className="mb-3">
+          <button
+            className="btn btn-primary"
+            onClick={handleSubmitClick}
+            disabled={!selectedQuestionId || loadingFeedback}
+          >
+            {loadingFeedback ? 'Submitting...' : 'Submit Answer'}
+          </button>
         </div>
 
         {/* AI Feedback */}

@@ -39,7 +39,7 @@ router.post('/answer', async (req, res) => {
       question: question.text,
       answer: answerText
     };
-
+const text=question.text+" "+answerText;
     const geminiResponse = await axios.post(
       geminiApiUrl,
       payload,
