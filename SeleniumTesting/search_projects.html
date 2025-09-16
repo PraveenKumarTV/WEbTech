@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Search Projects - Placement Prep Portal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Internal CSS for header and footer styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    header, footer {
+      background-color: #0d6efd; /* Bootstrap primary blue */
+      color: white;
+      width: 100%;
+    }
+
+    header .container,
+    footer .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 1rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:first-child {
+      margin-left: 0;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #cce5ff;
+      text-decoration: underline;
+    }
+
+    main.container {
+      flex-grow: 1;
+      padding: 2rem 1rem;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Cards styling */
+    .card {
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 8px rgb(0 0 0 / 0.1);
+    }
+
+    footer {
+      padding: 1rem 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    footer p {
+      margin: 0.2rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Placement Prep Portal</h1>
+      <nav aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="search_projects.html" class="active">Projects</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="container">
+    <h2 class="mb-4">Search & Filter Projects</h2>
+
+    <div class="row mb-4">
+      <div class="col-md-6 mb-2">
+        <input
+          type="search"
+          id="searchInput"
+          class="form-control"
+          placeholder="Search projects by name or tech stack..."
+          aria-label="Search Projects"
+        />
+      </div>
+      <div class="col-md-6">
+        <select id="techFilter" class="form-select" aria-label="Filter by Tech Stack">
+          <option value="">Filter by Tech Stack (All)</option>
+          <option value="React">React</option>
+          <option value="Node.js">Node.js</option>
+          <option value="Python">Python</option>
+          <option value="Java">Java</option>
+          <option value="Bootstrap">Bootstrap</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="projectsList" class="row gy-3">
+      <!-- Projects will be dynamically inserted here -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Contact us: support@placementprep.com | +1 234 567 890</p>
+      <p>© 2025 Placement Prep Portal. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const projects = [
+      {
+        name: "Job Portal",
+        techstack: "React, Node.js",
+        description: "A full-stack job portal with search and filters.",
+        source: "https://github.com/example/job-portal",
+        live: "https://jobportal.example.com"
+      },
+      {
+        name: "Resume Builder",
+        techstack: "Python, Bootstrap",
+        description: "Create and download professional resumes online.",
+        source: "https://github.com/example/resume-builder",
+        live: "https://resumebuilder.example.com"
+      },
+      {
+        name: "Interview Prep App",
+        techstack: "Java, Bootstrap",
+        description: "App with common interview questions and quizzes.",
+        source: "https://github.com/example/interview-prep",
+        live: "https://interviewprep.example.com"
+      },
+      {
+        name: "Portfolio Website",
+        techstack: "React, Bootstrap",
+        description: "Personal portfolio site with projects and blogs.",
+        source: "https://github.com/example/portfolio",
+        live: "https://portfolio.example.com"
+      }
+    ];
+
+    const projectsList = document.getElementById("projectsList");
+    const searchInput = document.getElementById("searchInput");
+    const techFilter = document.getElementById("techFilter");
+
+    function displayProjects(list) {
+      projectsList.innerHTML = "";
+      if (list.length === 0) {
+        projectsList.innerHTML = `<p class="text-muted">No projects found.</p>`;
+        return;
+      }
+
+      list.forEach(proj => {
+        const col = document.createElement("div");
+        col.className = "col-md-6";
+
+        col.innerHTML = `
+          <div class="card p-3 shadow-sm">
+            <h5>${proj.name}</h5>
+            <p><strong>Tech Stack:</strong> ${proj.techstack}</p>
+            <p>${proj.description}</p>
+            <a href="${proj.source}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-primary me-2">Source Code</a>
+            <a href="${proj.live}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-primary">Live Demo</a>
+          </div>
+        `;
+        projectsList.appendChild(col);
+      });
+    }
+
+    function filterProjects() {
+      const searchText = searchInput.value.toLowerCase();
+      const techValue = techFilter.value.toLowerCase();
+
+      const filtered = projects.filter(proj => {
+        const matchesSearch =
+          proj.name.toLowerCase().includes(searchText) ||
+          proj.techstack.toLowerCase().includes(searchText);
+
+        const matchesTech = techValue ? proj.techstack.toLowerCase().includes(techValue) : true;
+
+        return matchesSearch && matchesTech;
+      });
+
+      displayProjects(filtered);
+    }
+
+    searchInput.addEventListener("input", filterProjects);
+    techFilter.addEventListener("change", filterProjects);
+
+    displayProjects(projects);
+  </script>
+</body>
+</html>
