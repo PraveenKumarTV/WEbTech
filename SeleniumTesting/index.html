@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CrackUrPath</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    main {
+      flex-grow: 1;
+      padding: 30px 15px;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    .header-footer {
+      background-color: #343a40;
+      color: white;
+    }
+    .header-footer a {
+      color: white;
+      text-decoration: none;
+    }
+    .header-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header-footer py-3">
+  <div class="container d-flex flex-wrap justify-content-between align-items-center">
+    <a href="#" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none fs-4 fw-bold">
+      <i class="bi bi-lightning-charge-fill me-2"></i> CrackUrPath
+    </a>
+    <ul class="nav nav-pills">
+      <li class="nav-item"><a href="#" class="nav-link text-white">Home</a></li>
+      <li class="nav-item"><a href="#" class="nav-link text-white">Courses</a></li>
+      <li class="nav-item"><a href="#" class="nav-link text-white">Resources</a></li>
+      <li class="nav-item"><a href="#" class="nav-link text-white">About</a></li>
+      <li class="nav-item"><a href="#contact" class="nav-link text-white">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- Main content -->
+<main class="container">
+  <div class="row justify-content-center g-4">
+
+    <!-- Login Form -->
+    <div class="col-md-5">
+      <div class="card p-4 bg-white">
+        <h3 class="mb-4 text-center">Login</h3>
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email address</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" id="loginEmail" placeholder="Enter email" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" class="form-control" id="loginPassword" placeholder="Password" required />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+          <div id="loginMsg" class="mt-3 text-center"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div class="col-md-5">
+      <div class="card p-4 bg-white">
+        <h3 class="mb-4 text-center">Sign Up</h3>
+        <form id="signupForm">
+          <div class="mb-3">
+            <label for="signupName" class="form-label">Full Name</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person"></i></span>
+              <input type="text" class="form-control" id="signupName" placeholder="Your name" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="signupEmail" class="form-label">Email address</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="email" class="form-control" id="signupEmail" placeholder="Enter email" required />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="signupPassword" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" class="form-control" id="signupPassword" placeholder="Password" required />
+            </div>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Sign Up</button>
+          <div id="signupMsg" class="mt-3 text-center"></div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="header-footer py-4 mt-auto" id="contact">
+  <div class="container text-center">
+    <p class="mb-1"><strong>Contact Us</strong></p>
+    <p>Email: support@placementprep.com | Phone: +1 234 567 890</p>
+    <p class="mb-0">&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS bundle (Popper + Bootstrap JS) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS for form simulation -->
+<script>
+  document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    const loginMsg = document.getElementById('loginMsg');
+
+    if(email === 'test@example.com' && password === 'password') {
+      loginMsg.style.color = 'green';
+      loginMsg.textContent = 'Login successful!';
+    } else {
+      loginMsg.style.color = 'red';
+      loginMsg.textContent = 'Invalid email or password.';
+    }
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    const signupMsg = document.getElementById('signupMsg');
+
+    // For demo, let's just validate password length
+    if(password.length < 6) {
+      signupMsg.style.color = 'red';
+      signupMsg.textContent = 'Password must be at least 6 characters.';
+    } else {
+      signupMsg.style.color = 'green';
+      signupMsg.textContent = `Thank you for signing up, ${name}!`;
+    }
+  });
+</script>
+
+</body>
+</html>
