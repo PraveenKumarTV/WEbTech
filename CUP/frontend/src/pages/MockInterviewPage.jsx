@@ -31,7 +31,7 @@ export default function MockInterviewPage() {
     const fetchQuestions = async () => {
       setLoading(true);
       try {
-        const res = await authAxios.get('http://localhost:3001/api/mock-questions');
+        const res = await authAxios.get('http://localhost:3001/api/admin/mock-questions');
         setQuestions(res.data);
         setSelectedIndex(0);
         setIsResumeBased(false);
