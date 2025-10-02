@@ -1,10 +1,12 @@
 // backend/projects.js
+require('dotenv').config();
+
 const express = require('express');
 const { MongoClient } = require('mongodb');
 
 const router = express.Router();
-const uri = 'mongodb://localhost:27017'; // Change if your MongoDB is elsewhere
-const dbName = 'local'; // Replace with your actual DB name
+const uri = process.env.mongoURI; // Use environment variable for MongoDB connection string
+const dbName = 'test'; // Replace with your actual DB name
 
 router.get('/projects', async (req, res) => {
   let client;

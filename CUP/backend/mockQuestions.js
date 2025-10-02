@@ -1,4 +1,5 @@
 // server.js or routes/api.js
+require('dotenv').config();
 
 const express = require('express');
 const { MongoClient } = require('mongodb');
@@ -15,7 +16,7 @@ const dbName = 'test';
 
 const upload = multer({ dest: 'uploads/' });
 
-const GEMINI_API_KEY = 'AIzaSyBQ2HHPynPs4_cY4XqtEwbLubDuH9bdS5M';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 async function extractText(filePath, mimetype) {
