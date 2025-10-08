@@ -1,0 +1,47 @@
+/* Make sure the content starts below fixed navbar */
+.profile-page-wrapper {
+  padding-top: 100px; /* 80px navbar + 20px spacing */
+  padding-bottom: 50px;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+
+
+/* Spinner centering */
+.profile-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+/* Card styling */
+.profile-card {
+  max-width: 600px;
+  border: 2px solid #000;
+  border-radius: 12px;
+  box-shadow: 8px 8px 0 rgba(0,0,0,1);
+  padding: 25px;
+  background-color: #fff;
+}
+
+/* Buttons */
+.btn-custom {
+  background-color: #007bff;
+  border: 2px solid #000;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.btn-custom:hover {
+  background-color: #0056b3;
+  color: #fff;
+}
+
+/* Alerts spacing */
+.alert {
+  border-radius: 8px;
+}

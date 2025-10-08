@@ -1,0 +1,40 @@
+/* Center login page */
+.login-page {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+/* Card shadow and hover */
+.login-card {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 2px solid black;
+  box-shadow: 8px 8px 0 rgba(0,0,0,1);
+  transition: all 0.3s;
+}
+.login-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 rgba(0,0,0,1);
+}
+
+/* Button custom style */
+.btn-dark {
+  border: 2px solid black;
+  box-shadow: 4px 4px 0 rgba(0,0,0,1);
+  transition: all 0.3s;
+}
+.btn-dark:hover {
+  background-color: #343a40;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 rgba(0,0,0,1);
+}
+
+/* Links */
+a {
+  color: #0d6efd;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}

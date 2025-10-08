@@ -1,0 +1,68 @@
+/* Space below the fixed navbar */
+.mock-page {
+  padding-top: 100px; /* Adjust based on your navbar height */
+}
+
+/* Sidebar scrolling */
+.sidebar {
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  position: sticky;
+  top: 100px;
+}
+
+/* Question list items */
+.question-item {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+.question-item:hover {
+  background-color: #f0f0f0;
+}
+
+.question-item.selected {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn-resume {
+  background-color: #007bff;
+  color: #fff;
+  border: 2px solid #000;
+  font-weight: 600;
+}
+
+.btn-resume:hover {
+  background-color: #0056b3;
+}
+
+/* Card shadow like previous pages */
+.shadow-custom {
+  border: 2px solid #000;
+  box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+  border-radius: 12px;
+}
+
+/* Speak button */
+.btn-speak {
+  border: 2px solid #000;
+  border-radius: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    max-height: none;
+    position: relative;
+    top: 0;
+    margin-bottom: 20px;
+  }
+}

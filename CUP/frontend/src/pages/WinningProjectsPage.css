@@ -1,0 +1,34 @@
+/* Push content below fixed navbar */
+.winning-projects-wrapper {
+  padding-top: 100px; /* adjust to navbar height + spacing */
+  padding-bottom: 50px;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Search input style */
+.search-input {
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Dropdown checkboxes */
+.dropdown-checkbox {
+  margin-left: 1rem;
+}
+
+/* Project card styling */
+.project-card {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.project-image {
+  height: 220px;
+  object-fit: cover;
+}
+
+.project-tags {
+  font-size: 0.95em;
+  color: #555;
+}
