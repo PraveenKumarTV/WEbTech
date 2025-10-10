@@ -1,0 +1,20 @@
+<html ng-app="WeatherApp">
+<head>
+    <meta charset="UTF-8">
+    <title>WeatherApp</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+</head>
+<body ng-controller="Wctrl">
+    <div class="container">
+        <form ng-submit="getWeather()">
+            <h1>Weather Information App</h1>
+            <input type="text" ng-model="city" placeholder="Enter city name" required>
+            <button type="submit">Get weather</button>
+        </form>
+        <weather-card data="weatherData" ng-if="weatherData"></weather-card>
+    </div>
+    
+</body>
+</html>
