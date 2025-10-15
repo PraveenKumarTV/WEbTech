@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="index.xsl"?>
+<web>
+<books>
+<title>Web services</title>
+<author>Bob dylan</author>
+<country>USA</country>
+<company>colombia</company>
+<price>10.9</price>
+<year>1985</year>
+</books>
+</web>

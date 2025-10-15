@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html ng-app="chatApp">
+<head>
+    <title>Chat App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-controller="ctrl">
+    <h2>Simple Chat</h2>
+
+    <input type="text" ng-model="name" placeholder="Enter your name" required><br>
+    <input type="text" ng-model="msg" placeholder="Enter your message" required>
+    <button ng-click="postMsg()">Send</button>
+
+    <table>
+
+        <tr ng-repeat="it in msgs">
+            <td><strong>{{it.name}}:</strong></td>
+            <td>{{it.msg}}</td>
+        </tr>
+    </table>
+</body>
+</html>

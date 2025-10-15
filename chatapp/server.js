@@ -6,15 +6,15 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors()); 
 
-const url = 'mongodb://127.0.0.1:27017';
+const url = 'mongodb+srv://praveenkumartv1:praveen123@praveendb.ac0h0.mongodb.net/';
 const client = new MongoClient(url);
-const dbName = 'chatDB';
+const dbName = 'test';
 
 async function main() {
   await client.connect();
   console.log('Connected to MongoDB');
   const db = client.db(dbName);
-  const messages = db.collection('messages');
+  const messages = db.collection('Chatmessages');
 
   app.post('/message', async (req, res) => {
     try {

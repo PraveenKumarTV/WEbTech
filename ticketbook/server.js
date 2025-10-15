@@ -8,9 +8,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 
-const url = 'mongodb://127.0.0.1:27017';
+const url = 'mongodb+srv://praveenkumartv1:praveen123@praveendb.ac0h0.mongodb.net/';
 const client = new MongoClient(url);
-const dbName = 'movieDB';
+const dbName = 'test';
 
 async function main() {
   await client.connect();
